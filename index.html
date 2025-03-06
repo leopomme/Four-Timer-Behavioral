@@ -25,6 +25,7 @@
       padding: 10px 20px;
       margin: 5px;
       cursor: pointer;
+      font-size: 1em;
     }
     /* Main Timer Styles */
     #main-timer-section {
@@ -102,6 +103,11 @@
     @media (max-width: 768px) {
       #mini-timers {
         grid-template-columns: repeat(2, 1fr);
+      }
+      /* Increase button sizes for touch devices */
+      button {
+        padding: 15px 25px;
+        font-size: 1.2em;
       }
     }
   </style>
@@ -333,7 +339,7 @@
 
     // Check if all mini timers have been stopped and then stop the main timer.
     // When all are stopped, log a record for the Main Timer with its stop time
-    // and style the row with red borders.
+    // and style the row cells with red borders.
     function checkAllMiniStopped() {
       if (miniTimers.every(timerObj => timerObj.stopped)) {
         if (mainTimerInterval) {
