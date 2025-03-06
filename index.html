@@ -91,6 +91,12 @@
       padding: 5px;
       text-align: center;
     }
+    /* Container for records buttons */
+    .records-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     /* Flash Animation for Main Timer at 120 seconds */
     .flash {
       animation: flash 1s infinite;
@@ -161,7 +167,10 @@
           <!-- Log entries will appear here -->
         </tbody>
       </table>
-      <button id="download-csv">Download CSV</button>
+      <div class="records-buttons">
+        <button id="download-csv">Download CSV</button>
+        <button id="clear-records">Clear Records</button>
+      </div>
     </section>
   </main>
   <script>
@@ -267,7 +276,7 @@
       paused = true;
     });
 
-    // Reset main timer and mini timers
+    // Reset button: resets only timers, not the records logs
     document.getElementById('reset-btn').addEventListener('click', function() {
       // Reset main timer
       clearInterval(mainTimerInterval);
@@ -288,10 +297,6 @@
         timerObj.element.classList.remove('stopped');
         timerObj.interval = null;
       });
-
-      // Clear records
-      recordsData = [];
-      document.querySelector('#records-table tbody').innerHTML = "";
     });
 
     // Initialize mini timers by selecting each element and setting up events
@@ -379,6 +384,14 @@
       document.body.appendChild(link); // Required for Firefox
       link.click();
       document.body.removeChild(link);
+    });
+
+    // Clear records button: confirm before clearing records logs
+    document.getElementById('clear-records').addEventListener('click', function() {
+      if (confirm("Are you sure you want to clear records?")) {
+        recordsData = [];
+        document.querySelector('#records-table tbody').innerHTML = "";
+      }
     });
 
     // Initialize mini timers on page load
